@@ -11,7 +11,7 @@ exports.index = function(req, res, next){
 
 // Display list of all Users
 exports.user_list = function(req, res, next){
-    MongoUser.list_of_users(function(err, list_users){
+    MongoUser.get_list_of_users(function(err, list_users){
         if (err){
             next(err);
         } else {
@@ -22,7 +22,13 @@ exports.user_list = function(req, res, next){
 
 // Display detail page for a specific User
 exports.user_detail = function (req, res, next){
-    res.send('NOT IMPLEMENTED: User Details: ' + req.params.userId);
+    MongoUser.get_user_detail(req.params.userId, function(err, user_details){
+        if (err) {
+            next(err);
+        } else {
+            res.send(user_details);
+        }
+    });
 };
 
 // Display User create form on GET
