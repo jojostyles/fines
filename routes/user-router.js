@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var user_controller = require('../controllers/userController');
+var user_controller = require('../controllers/user-controller');
 
 router.get('/', user_controller.index);
 

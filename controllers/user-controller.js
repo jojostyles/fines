@@ -1,5 +1,8 @@
-var User = require('../models/User');
-var MongoUser = require('../database/mongo');
+/*
+* User Controller for handling user requests
+*
+*/
+var MongoUser = require('../database/user-mongo');
 
 // User index
 exports.index = function(req, res, next){
