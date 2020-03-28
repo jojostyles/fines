@@ -2,7 +2,15 @@
 * User Controller for handling user requests
 *
 */
-var MongoUser = require('../database/user-mongo');
+var UserMongo = require('../database/user-mongo').UserMongo;
+const mongoose = require('mongoose');
+const mongoDBUrl = process.env.MONGODB_URI || process.env.DEV_DB_URL;
+var connection = mongoose.createConnection(
+    mongoDBUrl,
+    { useNewUrlParser: true, useUnifiedTopology: true }
+);
+
+UserMongo = new UserMongo(connection);
 
 // User index
 exports.index = function(req, res, next){
@@ -11,7 +19,7 @@ exports.index = function(req, res, next){
 
 // Display list of all Users
 exports.user_list = function(req, res, next){
-    MongoUser.get_list_of_users(function(err, list_users){
+    UserMongo.get_list_of_users(function(err, list_users){
         if (err){
             next(err);
         } else {
@@ -22,7 +30,7 @@ exports.user_list = function(req, res, next){
 
 // Display detail page for a specific User
 exports.user_detail = function (req, res, next){
-    MongoUser.get_user_detail(req.params.userId, function(err, user_details){
+    UserMongo.get_user_detail(req.params.userId, function(err, user_details){
         if (err) {
             next(err);
         } else {

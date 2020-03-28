@@ -2,20 +2,24 @@
 * Implements the communication for a mongo database implementation
 *
 */
-var User = require('../models/user');
+var UserModel = require('../models/user').UserModel;
 
-// Gets the list of all users from the database
-exports.get_list_of_users = function(callback){
-    User.find({}, '')
-        .exec(function (err, list_users) {
-            callback(err, list_users);
-        });
-};
+module.exports.UserMongo = class UserMongo {
+    constructor(connection){
+        this.UserModel = UserModel(connection);
+    }
 
-// Returns user detail for a specific user
-exports.get_user_detail = function(userId, callback){
-    User.find({_id: userId}, '')
-        .exec(function (err, user_detail){
-            callback(err, user_detail);
-        });
+    get_list_of_users(callback){
+        this.UserModel.find({}, '')
+            .exec(function (err, list_users) {
+                callback(err, list_users);
+            });
+    }
+
+    get_user_detail(userId, callback) {
+        this.UserModel.findOne({ _id: userId }, '')
+            .exec(function (err, user_detail) {
+                callback(err, user_detail);
+            });
+    }
 };
