@@ -9,6 +9,9 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 
+# VS Code
+.vscode
+
 # Linux
 .directory
 *~
@@ -16,7 +19,6 @@ Desktop.ini
 
 # npm
 node_modules
-package-lock.json
 *.log
 *.gz
 
