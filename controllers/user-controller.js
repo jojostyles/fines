@@ -18,25 +18,23 @@ exports.index = function(req, res, next){
 };
 
 // Display list of all Users
-exports.user_list = function(req, res, next){
-    UserMongo.get_list_of_users(function(err, list_users){
-        if (err){
-            next(err);
-        } else {
-            res.send(list_users);
-        }
-    });
+exports.user_list = async function(req, res, next){
+    try {
+        let users = await UserMongo.get_list_of_users();
+        res.send(users);
+    } catch (err) {
+        next(err);
+    }
 };
 
 // Display detail page for a specific User
-exports.user_detail = function (req, res, next){
-    UserMongo.get_user_detail(req.params.userId, function(err, user_details){
-        if (err) {
-            next(err);
-        } else {
-            res.send(user_details);
-        }
-    });
+exports.user_detail = async function (req, res, next){
+    try {
+        let user = await UserMongo.get_user_detail(req.params.userId);
+        res.send(user);
+    } catch (err) {
+        next(err);
+    }
 };
 
 // Display User create form on GET

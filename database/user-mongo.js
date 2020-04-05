@@ -9,17 +9,20 @@ module.exports.UserMongo = class UserMongo {
         this.UserModel = UserModel(connection);
     }
 
-    get_list_of_users(callback){
-        this.UserModel.find({}, '')
-            .exec(function (err, list_users) {
-                callback(err, list_users);
-            });
+    /**
+     * Returns a list of all users.
+     */
+    async get_list_of_users(){
+        let users = await this.UserModel.find({}, '').exec();
+        return users;
     }
 
-    get_user_detail(userId, callback) {
-        this.UserModel.findOne({ _id: userId }, '')
-            .exec(function (err, user_detail) {
-                callback(err, user_detail);
-            });
+    /**
+     * Returns all properties of a user if userId exists, else it returns null
+     * @param {number} userId
+     */
+     async get_user_detail(userId) {
+        let user = await this.UserModel.findOne({_id: userId}, '');
+        return user;
     }
 };

@@ -14,4 +14,4 @@ exports.UserModel = function(connection){
         fines: [{ type: Schema.ObjectId, ref: 'FineInstance' }]
     });
     return connection.model('User', this.UserSchema);
-}
+};
